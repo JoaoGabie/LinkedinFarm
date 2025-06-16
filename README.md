@@ -1,38 +1,35 @@
-# LinkedinFarm — PALA
+# LinkedinFarm
 
-## Módulos
+## O que é"?
 
-- **conexao-bot:** Automação para aumentar conexões no LinkedIn, focando em perfis de RH e tech recruiters.
-- **aplicacao-bot:** Automação do processo de candidatura em vagas, preenchendo formulários automaticamente.
-- **scroll-filter-bot:** Bot para rolar o feed e filtrar vagas postadas, podendo já aplicar ou notificar o usuário.
-- **llm-core:** Núcleo de IA local, responsável por interpretar páginas, tomar decisões e gerar respostas.
-- **shared:** Código utilitário e componentes comuns (ex: integração com Telegram, banco, configs).
+**LinkedinFarm** é uma suíte modular de automações criada para transformar a forma como profissionais buscam oportunidades no LinkedIn.
+Nosso objetivo é eliminar a rotina cansativa e repetitiva de networking e candidaturas, colocando o processo inteiro no “modo automático” — do crescimento da rede ao envio de candidaturas em massa, com inteligência, personalização e integração.
 
-> O projeto é 100% modular. Cada bot pode ser executado de forma independente ou integrada, usando Docker.
+## Por que existe?
 
-## Como começar
+Muitos profissionais gastam horas tentando se destacar no LinkedIn, adicionando contatos manualmente, preenchendo formulários idênticos em dezenas de sites e nunca recebendo resposta.
+O LinkedinFarm nasceu a partir da frustração real de quem está na linha de frente buscando a primeira vaga ou tentando mudar de carreira, cansado de processos mecânicos e ineficazes.
 
-1. Instale as dependências em cada módulo (`npm install` ou `pip install`, conforme a stack).
-2. Configure as variáveis de ambiente necessárias.
-3. Rode cada bot individualmente, ou use o `docker-compose.yml` para rodar tudo junto.
-4. Veja os READMEs individuais para instruções de cada parte.
+## O que o LinkedinFarm faz?
 
----
+- **Aumenta sua rede automaticamente:** O bot de conexões identifica e adiciona contatos estratégicos (RHs, tech recruiters, pessoas-chave), potencializando sua visibilidade na plataforma.
+- **Aplica automaticamente para vagas:** O sistema preenche formulários de candidaturas, analisando cada vaga e enviando seus dados de forma personalizada, sem você precisar copiar e colar mil vezes.
+- **Filtra oportunidades de verdade:** O bot faz scroll infinito no seu feed, captura vagas novas postadas por contatos, grupos e empresas, e pode aplicar nelas automaticamente ou só destacar para você.
+- **IA local e personalização:** Diferente de soluções pagas e limitadas, o LinkedinFarm usa inteligência artificial local (nada de token pago ou limites de API), aprendendo com seu histórico e perfil.
+- **Integração com Telegram:** O sistema avisa quando precisa de alguma ação manual ou quando surge uma oportunidade urgente.
 
-## **3. README.md de cada módulo (exemplo para conexao-bot/README.md)**
+## Como é por dentro?
 
-```markdown
-# Conexao-Bot
+O projeto é dividido em módulos independentes e integráveis:
 
-Módulo responsável por automatizar o aumento de conexões no LinkedIn, focando principalmente em perfis de RH e tech recruiters.
+- **conexao-bot:** Faz a automação de conexões.
+- **aplicacao-bot:** Automatiza candidaturas.
+- **scroll-filter-bot:** Filtra e captura vagas do feed.
+- **llm-core:** Cérebro IA local do sistema, que interpreta páginas e toma decisões.
+- **shared:** Módulo utilitário para integrações (Telegram, banco de dados, etc).
 
-## Funcionalidades
+## Visão
 
-- Adiciona automaticamente até 200 conexões por semana.
-- Faz scraping para identificar perfis estratégicos.
-- Pode ser configurado para contato inicial via mensagem automatizada.
+Automatizar o networking e candidaturas para que o profissional foque no que realmente importa: aprimorar suas habilidades e aproveitar oportunidades reais, sem perder tempo com tarefas repetitivas e desgastantes.
 
-## Tecnologias sugeridas
-
-- Node.js/Python
-- Playwright ou Selenium
+**LinkedinFarm:** porque buscar emprego não precisa ser um trabalho em tempo integral.
