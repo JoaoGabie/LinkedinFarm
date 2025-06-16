@@ -1,8 +1,4 @@
-# Diadema
-
-**Diadema** é um projeto modular focado em automatizar o processo de networking e candidatura a vagas no LinkedIn (e outras plataformas), usando inteligência artificial local, automação de navegação e integração com bots de mensagem.
-
-O objetivo é eliminar a repetição de tarefas manuais, economizar tempo e aumentar as chances de ser notado pelo RH, tudo de maneira automatizada e personalizável.
+# LinkedinFarm — PALA
 
 ## Módulos
 
