@@ -1,8 +1,8 @@
-# Diadema — PALA
+# LinkedinFarm — PALA
 
 ## Visão Geral
 
-O Diadema é uma suíte modular de automações para LinkedIn e sites de vagas, dividida em três grandes frentes:
+O LinkedinFarm é uma suíte modular de automações para LinkedIn (e futuramente outros sites de vagas), criada para facilitar o networking, aumentar conexões relevantes e automatizar candidaturas. O objetivo é eliminar tarefas repetitivas, poupar tempo e maximizar a exposição do perfil para recrutadores, usando inteligência artificial local, automação web e integração com Telegram.
 - Automação de conexões
 - Aplicação automática em vagas
 - Filtro/scroll infinito de vagas postadas
