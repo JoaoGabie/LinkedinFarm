@@ -65,13 +65,13 @@ def main():
                         process_connect_button(button, page)  # Envia solicitação de conexão
                         conexoes_feitas_na_pagina += 1
                         connections_made += 1
-                        if connections_made >= 200:
+                        if connections_made >= MAX_CONNECTIONS:
                             break  # Atingiu 200 conexões no total, sai do loop interno
                     print(f"[✔] Página {page_num}: {conexoes_feitas_na_pagina} conexões feitas.")
 
                 # Verifica critérios de parada após processar a página
-                if connections_made >= 200:
-                    print("[✔] Limite de 200 conexões atingido. Encerrando o processo.")
+                if connections_made >= MAX_CONNECTIONS:
+                    print(f"[✔] Limite de {MAX_CONNECTIONS} conexões atingido. Encerrando o processo.")
                     break
 
                 # Pausa de 0,5s antes de carregar a próxima página
