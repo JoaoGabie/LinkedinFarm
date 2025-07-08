@@ -21,7 +21,7 @@ def main():
             print("Login attempt: Success")
 
             # Initialize the LinkedInSearch class and set search keywords
-            search = LinkedInSearch("Gestão em Saúde", "1")
+            search = LinkedInSearch("tech Recruiter", "1")
             search_url = search.get_url()
             print(f"Navigating to search URL: {search_url}")
 
