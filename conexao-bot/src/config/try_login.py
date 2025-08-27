@@ -1,4 +1,5 @@
 import json
+from dotenv import load_dotenv
 import os
 from playwright.sync_api import Playwright
 
@@ -105,7 +106,7 @@ def save_new_token(context, credentials):
 
 def try_login(p: Playwright):
     """Tenta fazer login no LinkedIn usando a instância do Playwright fornecida."""
-    browser = p.chromium.launch(headless=False)
+    browser = p.chromium.launch(headless=True)
     context = browser.new_context(
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
         viewport={"width": 1280, "height": 720}
