@@ -1,17 +1,22 @@
-from playwright.sync_api import Page
-from core.session_manager import SessionManager  # Adicionada para tipagem, se necessário
+from playwright.sync_api import BrowserContext, Page
 
 class TabManager:
-    def __init__(self, session_manager: SessionManager):
-        self.session_manager = session_manager
+    def __init__(self):
+        self.ctx: BrowserContext | None = None
+
+    def attach(self, ctx: BrowserContext):
+        """Conecta o TabManager a um contexto já inicializado."""
+        self.ctx = ctx
 
     def open_page(self) -> Page:
-        """Fornece uma nova aba se a sessão estiver ativa."""
-        if not self.session_manager.logged_in:
-            raise Exception("Not logged in")
-        return self.session_manager.context.new_page()
+        if self.ctx is None:
+            raise RuntimeError("TabManager não está ligado a um BrowserContext. Chame orchestrator.start() antes.")
+        page = self.ctx.new_page()
+        page.set_default_timeout(60_000)
+        return page
 
     def close_page(self, page: Page):
-        """Fecha uma aba específica."""
-        if page:
+        try:
             page.close()
+        except Exception:
+            pass
