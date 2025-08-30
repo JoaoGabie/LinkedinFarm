@@ -1,5 +1,9 @@
 from playwright.sync_api import Page
 
+LIMIT_MODAL_SELECTOR   = "div.artdeco-modal.ip-fuse-limit-alert[role='dialog']"
+LIMIT_HEADER_SELECTOR  = "h2.ip-fuse-limit-alert__header"
+LIMIT_OK_BUTTON        = "button.ip-fuse-limit-alert__primary-action"
+
 def get_connect_buttons(page: Page):
     try:
         page.wait_for_selector("button:has-text('Conectar')", timeout=1000)
@@ -52,3 +56,20 @@ def close_popup_if_present(page: Page):
             print("[✔] Pop-up fechado com sucesso.")
     except Exception as e:
         print(f"[❌] Erro ao tentar fechar pop-up: {e}")
+
+def hit_weekly_limit(page) -> bool:
+    try:
+        # Checa o modal direto
+        modal = page.query_selector(LIMIT_MODAL_SELECTOR)
+        if modal and modal.is_visible():
+            return True
+
+        # Fallback: checa o header (caso o modal ainda esteja montando)
+        header = page.query_selector(LIMIT_HEADER_SELECTOR)
+        if header:
+            txt = (header.inner_text() or "").strip().lower()
+            if "limite semanal" in txt or "limite semanal de convites" in txt:
+                return True
+    except Exception:
+        pass
+    return False
