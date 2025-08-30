@@ -1,5 +1,5 @@
 from core.orchestrator import BrowserOrchestrator
-from config.button_handler import get_connect_buttons, process_connect_button
+from config.button_handler import get_connect_buttons, process_connect_button, hit_weekly_limit
 from config.linkedin_search import LinkedInSearch
 from config.web_scraper_profiles import scrape_profiles, save_to_bank, load_connection_count
 
@@ -24,7 +24,7 @@ def main():
         title = page.title()
         print(f"Page title: {title}")
 
-        print("Executando WebScraperProfile inicial...")
+        print("Executando Bot de conexão inicial...")
         scraped_profiles = scrape_profiles(page)
         save_to_bank(scraped_profiles)
 
@@ -42,9 +42,8 @@ def main():
                 break
 
             connect_buttons = get_connect_buttons(page)
-            if not connect_buttons:
-                print(f"[→] Página {page_num}: 0 conexões encontradas.")
-            else:
+
+            if connect_buttons:
                 conexoes_feitas_na_pagina = 0
                 for button in connect_buttons:
                     process_connect_button(button, page)
@@ -52,13 +51,20 @@ def main():
                     connections_made += 1
                     if connections_made >= MAX_CONNECTIONS:
                         break
-                print(f"[✔] Página {page_num}: {conexoes_feitas_na_pagina} conexões feitas.")
+                print(f"[✔] Página {page_num}: {conexoes_feitas_na_pagina} conexões feitas de total({connections_made}).")
+            else:
+                print(f"[→] Página {page_num}: 0 conexões encontradas de total({connections_made}).")
 
             if connections_made >= MAX_CONNECTIONS:
                 print(f"[✔] Limite de {MAX_CONNECTIONS} conexões atingido. Encerrando o processo.")
                 break
 
             page.wait_for_timeout(500)
+
+            if hit_weekly_limit(page):
+                print("[!] Limite semanal já ativo nesta página. Encerrando.")
+                orch.close_page(page)
+                return
 
     finally:
         orch.close_page(page)
