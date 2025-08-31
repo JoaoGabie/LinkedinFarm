@@ -10,3 +10,6 @@
 /conexao-bot/src/.user_data/
 /core/.user_data/
 /core/core/
+/core/utils/
+/shared/database/contacts.xlsx
+/shared/database/test.py

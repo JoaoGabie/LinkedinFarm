@@ -1,7 +1,6 @@
 import json
-from dotenv import load_dotenv
 import os
-from playwright.sync_api import Playwright
+
 
 # Constantes
 FEED_URL = "https://www.linkedin.com/feed/"
@@ -12,7 +11,8 @@ SUBMIT_BUTTON_SELECTOR = "button[type='submit']"
 TIMEOUT = 10000  # 10 segundos
 WAIT_AFTER_GOTO = 2000  # 2 segundos
 WAIT_FOR_URL_TIMEOUT = 15000  # 15 segundos
-JSON_FILE = "core/utils/linkedin_credentials.json"
+DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+JSON_FILE = os.path.join(DIR, "core", "utils", "linkedin_credentials.json")
 
 def load_credentials():
     """Carrega as credenciais do arquivo JSON."""
