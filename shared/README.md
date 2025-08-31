@@ -1,1 +1,0 @@
-# Código utilitário compartilhado (helpers, banco, configs)# Código utilitário compartilhado (helpers, banco, configs)

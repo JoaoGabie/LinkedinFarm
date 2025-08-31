@@ -1,4 +1,5 @@
 import json
+from dotenv import load_dotenv
 import os
 from playwright.sync_api import Playwright
 
@@ -11,7 +12,7 @@ SUBMIT_BUTTON_SELECTOR = "button[type='submit']"
 TIMEOUT = 10000  # 10 segundos
 WAIT_AFTER_GOTO = 2000  # 2 segundos
 WAIT_FOR_URL_TIMEOUT = 15000  # 15 segundos
-JSON_FILE = "utils/linkedin_credentials.json"
+JSON_FILE = "core/utils/linkedin_credentials.json"
 
 def load_credentials():
     """Carrega as credenciais do arquivo JSON."""
@@ -103,34 +104,25 @@ def save_new_token(context, credentials):
         save_credentials(credentials)
         print("Novo token de autenticação capturado e salvo.")
 
-def try_login(p: Playwright):
-    """Tenta fazer login no LinkedIn usando a instância do Playwright fornecida."""
-    browser = p.chromium.launch(headless=False)
-    context = browser.new_context(
-        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
-        viewport={"width": 1280, "height": 720}
-    )
-    page = context.new_page()
-
+def try_login(page):
+    """Tenta fazer login usando a Page já aberta no contexto do Core."""
     credentials = load_credentials()
     if not are_credentials_valid(credentials):
         print("Erro: Credenciais não fornecidas no arquivo JSON.")
-        browser.close()
-        return False, None, None
+        return False
 
     token = get_auth_token(credentials)
-    if token and attempt_token_login(context, page, token):
-        return True, page, browser
+    if token and attempt_token_login(page.context, page, token):
+        return True
 
-    # Token falhou ou está ausente, limpa e tenta com credenciais
+    # Token falhou → limpa e tenta com credenciais
     credentials["auth"] = []
     save_credentials(credentials)
-    context.clear_cookies()
-    page = context.new_page()
+    page.context.clear_cookies()
 
     if attempt_credential_login(page, credentials):
-        save_new_token(context, credentials)
-        return True, page, browser
-    else:
-        browser.close()
-        return False, None, None
+        save_new_token(page.context, credentials)
+        return True
+
+    print("Falha no login com credenciais.")
+    return False
